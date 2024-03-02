@@ -75,7 +75,7 @@ let queryImage = async () => {
           <v-col cols="12" md="8">
             <v-col cols="12" md="12">
               <v-sheet min-height="40vh" rounded="lg">
-                <v-text-field v-model="key" type="text" label="Key"></v-text-field>
+                <v-text-field v-model="key" type="text" label="API Key"></v-text-field>
                 <v-textarea label="Prompt" variant="solo" v-model="prompt"></v-textarea>
                 <v-btn prepend-icon="$vuetify" @click="query()" min-width="100%"> TEXT</v-btn>
                 <v-btn prepend-icon="$vuetify" @click="queryImage()" min-width="100%"> IMAGE</v-btn>
