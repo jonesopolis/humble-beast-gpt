@@ -12,7 +12,7 @@ import * as directives from 'vuetify/directives'
 
 const vuetify = createVuetify({
   theme: {
-    defaultTheme: 'dark'
+    defaultTheme: 'light'
   },
   components,
   directives,

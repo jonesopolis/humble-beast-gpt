@@ -2,7 +2,7 @@
 import OpenAI from 'openai'
 import { ref } from 'vue'
 
-const key = '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';
+const key = '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';
 const openai = new OpenAI({ apiKey: key, dangerouslyAllowBrowser: true })
 
 const prompt = ref('')
