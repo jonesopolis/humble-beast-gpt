@@ -1,31 +1,35 @@
 <script setup>
 import OpenAI from 'openai'
-import { ref } from 'vue'
-
-const key = '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';
-const openai = new OpenAI({ apiKey: key, dangerouslyAllowBrowser: true })
+import {ref} from 'vue'
 
 const prompt = ref('')
 const result = ref('')
 const imageResult = ref('')
+const key = ref('');
 const loading = ref(false)
 
 let query = async () => {
+
+  const openai = new OpenAI({apiKey: key.value, dangerouslyAllowBrowser: true})
+
   result.value = '';
   imageResult.value = '';
   loading.value = true
 
   const completion = await openai.chat.completions.create({
-    messages: [{ role: 'system', content: prompt.value }],
+    messages: [{role: 'system', content: prompt.value}],
     model: 'gpt-3.5-turbo'
   })
-  
+
   loading.value = false
   result.value = completion.choices[0].message.content
   console.log(completion.choices[0])
 }
 
 let queryImage = async () => {
+
+  const openai = new OpenAI({apiKey: key.value, dangerouslyAllowBrowser: true})
+
   result.value = '';
   imageResult.value = '';
   loading.value = true
@@ -63,17 +67,18 @@ let queryImage = async () => {
       <v-container>
         <v-row>
           <v-col cols="12" md="2">
-<!--            <v-sheet rounded="lg" min-height="268">-->
-<!--              &lt;!&ndash;  &ndash;&gt;-->
-<!--            </v-sheet>-->
+            <!--            <v-sheet rounded="lg" min-height="268">-->
+            <!--              &lt;!&ndash;  &ndash;&gt;-->
+            <!--            </v-sheet>-->
           </v-col>
-
+            
           <v-col cols="12" md="8">
             <v-col cols="12" md="12">
               <v-sheet min-height="40vh" rounded="lg">
-                <v-textarea label="Prompt" variant="solo" v-model="prompt" v-on:keyup.enter="query()"></v-textarea>
-                <v-btn prepend-icon="$vuetify" @click="query()" min-width="100%"> TEXT </v-btn>
-                <v-btn prepend-icon="$vuetify" @click="queryImage()" min-width="100%"> IMAGE </v-btn>
+                <v-text-field v-model="key" type="text" label="Key"></v-text-field>
+                <v-textarea label="Prompt" variant="solo" v-model="prompt"></v-textarea>
+                <v-btn prepend-icon="$vuetify" @click="query()" min-width="100%"> TEXT</v-btn>
+                <v-btn prepend-icon="$vuetify" @click="queryImage()" min-width="100%"> IMAGE</v-btn>
               </v-sheet>
             </v-col>
 
@@ -81,10 +86,10 @@ let queryImage = async () => {
               <v-sheet min-height="70vh" rounded="lg" class="my-3 mx-3 py-5 px-5">
                 <div class="text-center">
                   <v-progress-linear
-                    v-if="loading"
-                    class="my-5"
-                    indeterminate="true"
-                    color="cyan"
+                      v-if="loading"
+                      class="my-5"
+                      indeterminate="true"
+                      color="cyan"
                   ></v-progress-linear>
                 </div>
                 <img v-if="imageResult" class="text-left" :src="imageResult" width="100%"/>
@@ -94,9 +99,9 @@ let queryImage = async () => {
           </v-col>
 
           <v-col cols="12" md="2">
-<!--            <v-sheet rounded="lg" min-height="268">-->
-<!--              &lt;!&ndash;  &ndash;&gt;-->
-<!--            </v-sheet>-->
+            <!--            <v-sheet rounded="lg" min-height="268">-->
+            <!--              &lt;!&ndash;  &ndash;&gt;-->
+            <!--            </v-sheet>-->
           </v-col>
         </v-row>
       </v-container>
